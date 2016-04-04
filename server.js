@@ -2,8 +2,10 @@
 var express = require('express');
 var config = require('./config');
 var app = express();
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === 'production') {
   console.log('Running in production mode');
@@ -24,6 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Include server routes as a middleware
+
 app.use(function useCb(req, res, next) {
   require('./server/app')(req, res, next);
 });
